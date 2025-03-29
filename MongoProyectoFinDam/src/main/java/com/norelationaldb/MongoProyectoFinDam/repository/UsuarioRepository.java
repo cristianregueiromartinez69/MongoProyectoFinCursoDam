@@ -10,4 +10,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface UsuarioRepository extends MongoRepository<Usuarios, String> {
 
+    //encontrar usuario por email
+    Usuarios findByEmail(String email);
+
+    //encontrar usuario por password
+    Usuarios findByPasswordU(String nombre);
 }
