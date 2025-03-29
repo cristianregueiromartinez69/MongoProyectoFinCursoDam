@@ -33,6 +33,9 @@ public class Usuarios {
         this.dateReg = dateReg;
     }
 
+    public Usuarios() {
+    }
+
     public String getId() {
         return id;
     }
