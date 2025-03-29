@@ -12,7 +12,13 @@ public class LoginUsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public boolean checkEmailExists(String email) {
 
+
+    public boolean checkEmailExists(String email) {
+        return usuarioRepository.findByEmail(email) != null;
+    }
+
+    public boolean checkPasswordExists(String password) {
+        return usuarioRepository.findByEmail(password) != null;
     }
 }
