@@ -1,4 +1,4 @@
 package com.norelationaldb.MongoProyectoFinDam.model.dto;
 
-public class CancionesDTO {
+public class HistorialDTO {
 }
