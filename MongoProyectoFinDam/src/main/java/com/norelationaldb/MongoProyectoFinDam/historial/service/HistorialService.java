@@ -48,7 +48,7 @@ public class HistorialService {
      * Metodo principal para guardar una cancion
      * @param idCancion el id de la cancion escuchada
      */
-    public void saveSongHistorial(Integer idCancion){
+    public boolean saveSongHistorial(Integer idCancion){
         String email = getCurrentEmail(userTokens.getUserTokens());
         if(email == null){
             throw new LoginUserExcepcion("Usuario no logueado, fuera hacker!!");
@@ -70,7 +70,9 @@ public class HistorialService {
                 historialNuevo.setFechaRegistro(LocalDate.now());
                 historialRepository.save(historialNuevo);
             }
+            return true;
         }
+        return false;
     }
 
     /**

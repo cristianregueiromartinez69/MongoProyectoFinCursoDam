@@ -35,10 +35,13 @@ public class HistorialSaveCancionRestController {
     @PostMapping("/play/id/{idCancion}")
     public ResponseEntity<String> saveCancionHistorial(@PathVariable Integer idCancion) {
         try{
-            historialService.saveSongHistorial(idCancion);
+            boolean historialGuardado = historialService.saveSongHistorial(idCancion);
+            if(historialGuardado){
+                return ResponseEntity.ok("cancion añadida al historial");
+            }
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.ok("Cancion añadida al historial");
+        return ResponseEntity.badRequest().body("Sin cambios en el historial");
     }
 }
