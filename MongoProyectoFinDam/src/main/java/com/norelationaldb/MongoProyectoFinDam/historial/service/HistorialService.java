@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -56,6 +58,7 @@ public class HistorialService {
                 Historial historial = new Historial();
                 historial.setIdCancion(idCancion);
                 historial.setEmailUser(email);
+                historial.setFechaRegistro(LocalDate.now());
                 historialRepository.save(historial);
             }
             else{
@@ -64,6 +67,7 @@ public class HistorialService {
                 Historial historialNuevo = new Historial();
                 historialNuevo.setIdCancion(idCancion);
                 historialNuevo.setEmailUser(email);
+                historialNuevo.setFechaRegistro(LocalDate.now());
                 historialRepository.save(historialNuevo);
             }
         }

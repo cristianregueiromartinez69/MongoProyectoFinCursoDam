@@ -15,8 +15,6 @@ public class Historial {
 
     private Integer idCancion;
     private String emailUser;
-
-    @JsonIgnore
     private LocalDate fechaRegistro;
 
     public Historial(String id, Integer idCancion, String emailUser, LocalDate fechaRegistro) {
