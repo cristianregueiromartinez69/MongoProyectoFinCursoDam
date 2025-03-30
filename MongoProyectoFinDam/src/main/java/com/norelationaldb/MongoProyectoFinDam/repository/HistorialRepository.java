@@ -2,6 +2,7 @@ package com.norelationaldb.MongoProyectoFinDam.repository;
 
 import com.norelationaldb.MongoProyectoFinDam.model.entity.Historial;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +12,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface HistorialRepository extends MongoRepository<Historial, String> {
+
+    @Query(value = "{ 'email' : ?0 }", count = true)
+    long countByEmailUser(String email);
+
 }
