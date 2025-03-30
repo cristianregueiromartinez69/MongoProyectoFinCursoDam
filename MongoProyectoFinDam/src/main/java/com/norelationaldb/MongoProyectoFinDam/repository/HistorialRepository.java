@@ -16,4 +16,7 @@ public interface HistorialRepository extends MongoRepository<Historial, String> 
     @Query(value = "{ 'email' : ?0 }", count = true)
     long countByEmailUser(String email);
 
+    void deleteByIdCancion(Integer idCancion);
+
+    Historial findByIdCancion(Integer idCancion);
 }

@@ -1,5 +1,6 @@
 package com.norelationaldb.MongoProyectoFinDam.historial.service;
 
+import com.norelationaldb.MongoProyectoFinDam.excepciones.LoginUserExcepcion;
 import com.norelationaldb.MongoProyectoFinDam.model.entity.Historial;
 import com.norelationaldb.MongoProyectoFinDam.model.entity.Usuarios;
 import com.norelationaldb.MongoProyectoFinDam.repository.HistorialRepository;
@@ -12,15 +13,28 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Servicio de logica de historial
+ * @author cristian && Joel
+ * @version 1.0
+ */
 @Service
 public class HistorialService {
 
+    //atributos de clase
     private final HistorialRepository historialRepository;
     private final UserTokens userTokens;
     private final UsuarioRepository usuarioRepository;
 
     private final MongoTemplate mongoTemplate;
 
+    /**
+     * Constructor de la clase
+     * @param historialRepository el repositorio del historial
+     * @param userTokens el hashmap de users logueados
+     * @param usuarioRepository el repositorio de usuarios
+     * @param mongoTemplate el mongo template de querys
+     */
     public HistorialService(HistorialRepository historialRepository, UserTokens userTokens, UsuarioRepository usuarioRepository, MongoTemplate mongoTemplate) {
         this.historialRepository = historialRepository;
         this.userTokens = userTokens;
@@ -28,6 +42,38 @@ public class HistorialService {
         this.mongoTemplate = mongoTemplate;
     }
 
+    /**
+     * Metodo principal para guardar una cancion
+     * @param idCancion el id de la cancion escuchada
+     */
+    public void saveSongHistorial(Integer idCancion){
+        String email = getCurrentEmail(userTokens.getUserTokens());
+        if(email == null){
+            throw new LoginUserExcepcion("Usuario no logueado, fuera hacker!!");
+        }
+        if(checkIfExistsSongHistorial(idCancion)){
+            if(checkLimitSongsHistorial(email)){
+                Historial historial = new Historial();
+                historial.setIdCancion(idCancion);
+                historial.setEmailUser(email);
+                historialRepository.save(historial);
+            }
+            else{
+                Historial historialViejo = getOldHistorial(email);
+                historialRepository.deleteByIdCancion(historialViejo.getIdCancion());
+                Historial historialNuevo = new Historial();
+                historialNuevo.setIdCancion(idCancion);
+                historialNuevo.setEmailUser(email);
+                historialRepository.save(historialNuevo);
+            }
+        }
+    }
+
+    /**
+     * Metodo para obtener un objeto historial antiguo
+     * @param email el email del usuario logueado
+     * @return el historial
+     */
     public Historial getOldHistorial(String email) {
         if(!checkLimitSongsHistorial(email)) {
             Query query = new Query(Criteria.where("email").is(email));
@@ -39,6 +85,21 @@ public class HistorialService {
         return null;
     }
 
+    /**
+     * Metodo para saber si ya existe o no esta cancion en el historial
+     * @param idCancion el id de la cancion
+     * @return true o false dependiendo de si existe o no
+     */
+    public boolean checkIfExistsSongHistorial(Integer idCancion) {
+        Historial historialExistente = historialRepository.findByIdCancion(idCancion);
+        return historialExistente == null;
+    }
+
+    /**
+     * Metodo para saber el numero de canciones del historial
+     * @param email el email del usuario logueafo
+     * @return true o false dependiendo de si tienes mas de 10 0 menos
+     */
     private boolean checkLimitSongsHistorial(String email){
         long numero = historialRepository.countByEmailUser(email);
         return numero <= 10;
