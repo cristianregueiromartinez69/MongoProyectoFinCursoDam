@@ -74,7 +74,7 @@ public class HistorialService {
      * @param email el email del usuario logueado
      * @return el historial
      */
-    public Historial getOldHistorial(String email) {
+    private Historial getOldHistorial(String email) {
         if(!checkLimitSongsHistorial(email)) {
             Query query = new Query(Criteria.where("email").is(email));
             query.with(Sort.by(Sort.Direction.ASC, "fechaRegistro"));
@@ -90,7 +90,7 @@ public class HistorialService {
      * @param idCancion el id de la cancion
      * @return true o false dependiendo de si existe o no
      */
-    public boolean checkIfExistsSongHistorial(Integer idCancion) {
+    private boolean checkIfExistsSongHistorial(Integer idCancion) {
         Historial historialExistente = historialRepository.findByIdCancion(idCancion);
         return historialExistente == null;
     }
@@ -110,7 +110,7 @@ public class HistorialService {
      * @param logginUsers El hashmap con los users logueados
      * @return el email o null
      */
-    public String getCurrentEmail(ConcurrentHashMap<String, String> logginUsers){
+    private String getCurrentEmail(ConcurrentHashMap<String, String> logginUsers){
         for(String usuario : logginUsers.keySet()){
             Usuarios userAuthenticator = usuarioRepository.findByEmail(usuario);
             if(userAuthenticator != null){
