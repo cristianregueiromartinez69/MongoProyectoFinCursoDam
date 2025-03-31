@@ -56,10 +56,12 @@ public class HistorialOtherOperationsRestController {
             if(borrado){
                 return ResponseEntity.ok("Cancion borrada del historial");
             }
+            else{
+                return ResponseEntity.noContent().build();
+            }
         }catch (Exception e){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -73,9 +75,11 @@ public class HistorialOtherOperationsRestController {
            if(borradoCompleto){
                return ResponseEntity.ok("Historial borrado correctamente");
            }
+           else{
+               return ResponseEntity.noContent().build();
+           }
         }catch (Exception e){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.noContent().build();
     }
 }
