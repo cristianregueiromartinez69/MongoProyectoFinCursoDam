@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -74,6 +75,8 @@ public class HistorialService {
         }
         return false;
     }
+
+
 
     /**
      * Metodo para obtener un objeto historial antiguo
