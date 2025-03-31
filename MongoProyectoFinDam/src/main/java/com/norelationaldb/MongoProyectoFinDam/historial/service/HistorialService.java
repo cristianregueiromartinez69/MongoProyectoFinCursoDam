@@ -88,6 +88,10 @@ public class HistorialService {
         return historialRepository.findByEmailUser(email);
     }
 
+    public void deleteHistorialByIDCancionAndEmail(Integer idCancion){
+
+    }
+
     /**
      * Metodo para obtener un objeto historial antiguo
      * @param email el email del usuario logueado
