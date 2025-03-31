@@ -106,7 +106,22 @@ public class HistorialService {
         return false;
     }
 
-
+    /**
+     * Metodo de borrado de historial por email de usuario
+     * @return true o false dependiendo de si se borro o no el historial
+     */
+    public boolean borradoCompletoHistorial(){
+        String email = getCurrentEmail(userTokens.getUserTokens());
+        if(email == null){
+            throw new LoginUserExcepcion("Usuario no logueado, fuera hacker!!");
+        }
+        List<Historial> historials = historialRepository.findByEmailUser(email);
+        if(historials.isEmpty()){
+            return false;
+        }
+        historialRepository.deleteByEmailUser(email);
+        return true;
+    }
 
     /**
      * Metodo para obtener un objeto historial antiguo
