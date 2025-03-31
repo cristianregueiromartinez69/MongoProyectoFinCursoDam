@@ -58,4 +58,10 @@ public interface HistorialRepository extends MongoRepository<Historial, String> 
      * @param email el email del usuario
      */
     void deleteByIdCancionAndEmailUser(Integer idCancion, String email);
+
+    /**
+     * Metodo de borrado de historial completo por usuario
+     * @param email el email del usuario
+     */
+    void deleteByEmailUser(String email);
 }

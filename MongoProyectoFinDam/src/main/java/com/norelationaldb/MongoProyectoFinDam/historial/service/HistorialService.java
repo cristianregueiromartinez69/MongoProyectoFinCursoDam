@@ -106,6 +106,8 @@ public class HistorialService {
         return false;
     }
 
+
+
     /**
      * Metodo para obtener un objeto historial antiguo
      * @param email el email del usuario logueado
