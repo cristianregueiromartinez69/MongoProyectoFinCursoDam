@@ -3,9 +3,7 @@ package com.norelationaldb.MongoProyectoFinDam.historial.controller;
 import com.norelationaldb.MongoProyectoFinDam.historial.service.HistorialService;
 import com.norelationaldb.MongoProyectoFinDam.model.entity.Historial;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +42,23 @@ public class HistorialOtherOperationsRestController {
         }catch (Exception e){
             return ResponseEntity.noContent().build();
         }
+    }
+
+    /**
+     * Metodo de borrado de cancion por id en historial
+     * @param idCancion el id de la cancion a borrar del historial
+     * @return un mensaje descriptivo
+     */
+    @DeleteMapping("/historial/borrar/id/{idCancion}")
+    public ResponseEntity<String> borrarHistorial(@PathVariable Integer idCancion){
+        try{
+            boolean borrado = historialService.deleteHistorialByIDCancionAndEmail(idCancion);
+            if(borrado){
+                return ResponseEntity.ok("Cancion borrada del historial");
+            }
+        }catch (Exception e){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 }

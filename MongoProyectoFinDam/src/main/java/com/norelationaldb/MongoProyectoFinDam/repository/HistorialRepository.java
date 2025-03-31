@@ -45,6 +45,14 @@ public interface HistorialRepository extends MongoRepository<Historial, String> 
     List<Historial> findByEmailUser(String email);
 
     /**
+     * Metodo para encontrar un objeto historial por email e id de cancion
+     * @param email el email del usuario
+     * @param idCancion el id de la cancion
+     * @return el objeto historial
+     */
+    Historial findByEmailUserAndIdCancion(String email, Integer idCancion);
+
+    /**
      * Metodo de borrado de objeto historial por id de cancion e email de usuario
      * @param idCancion el id de la cancion
      * @param email el email del usuario

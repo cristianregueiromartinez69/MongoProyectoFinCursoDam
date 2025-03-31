@@ -88,8 +88,22 @@ public class HistorialService {
         return historialRepository.findByEmailUser(email);
     }
 
-    public void deleteHistorialByIDCancionAndEmail(Integer idCancion){
-
+    /**
+     * Metodo de borrado de una cancion del historial por id de cancion e email
+     * @param idCancion el id de la cancion
+     * @return un true o false dependiendo de si se borró o no se borró la cancion
+     */
+    public boolean deleteHistorialByIDCancionAndEmail(Integer idCancion){
+        String email = getCurrentEmail(userTokens.getUserTokens());
+        if(email == null){
+            throw new LoginUserExcepcion("Usuario no logueado, fuera hacker!!");
+        }
+        Historial historial = historialRepository.findByEmailUserAndIdCancion(email, idCancion);
+        if(historial != null){
+            historialRepository.deleteByIdCancionAndEmailUser(idCancion, email);
+            return true;
+        }
+        return false;
     }
 
     /**
