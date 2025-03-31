@@ -61,4 +61,21 @@ public class HistorialOtherOperationsRestController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Metodo de borrado del historial completo de un usuario
+     * @return un mensaje indicando si se borro o no
+     */
+    @DeleteMapping("/historial/borrar")
+    public ResponseEntity<String> borrarHistorialCompleto(){
+        try{
+           boolean borradoCompleto = historialService.borradoCompletoHistorial();
+           if(borradoCompleto){
+               return ResponseEntity.ok("Historial borrado correctamente");
+           }
+        }catch (Exception e){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
