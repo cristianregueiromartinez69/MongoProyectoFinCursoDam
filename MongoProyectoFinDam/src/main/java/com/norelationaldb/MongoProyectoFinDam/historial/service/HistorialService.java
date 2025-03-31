@@ -76,7 +76,17 @@ public class HistorialService {
         return false;
     }
 
-
+    /**
+     * Metodo para devolver una lista de historial de canciones por email de usuario
+     * @return la lista de objetos historial
+     */
+    public List<Historial> getHistorialByEmail(){
+        String email = getCurrentEmail(userTokens.getUserTokens());
+        if(email == null){
+            throw new LoginUserExcepcion("Usuario no logueado, fuera hacker!!");
+        }
+        return historialRepository.findByEmailUser(email);
+    }
 
     /**
      * Metodo para obtener un objeto historial antiguo

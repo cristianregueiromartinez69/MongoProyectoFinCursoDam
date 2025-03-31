@@ -25,7 +25,7 @@ public interface HistorialRepository extends MongoRepository<Historial, String> 
 
     /**
      * Metodo que borra un objeto historial por id de cancion
-     * @param idCancion
+     * @param idCancion el id de la cancion a borrar
      */
     void deleteByIdCancion(Integer idCancion);
 
