@@ -31,7 +31,7 @@ public class TopCancionesRestController {
 
     /**
      * Metodo Get para obtener todas las canciones más escuchadas de la app
-     * @return
+     * @return la lista de canciones escuchadas
      */
     @GetMapping("/topcanciones")
     public ResponseEntity<List<TopCanciones>> getTopCanciones() {
