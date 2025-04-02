@@ -10,5 +10,5 @@ public class MongoProyectoFinDamApplication {
 		SpringApplication.run(MongoProyectoFinDamApplication.class, args);
 	}
 
-	//Usaremos mongo para guardar el historial
+	//bugs y app hecha
 }
