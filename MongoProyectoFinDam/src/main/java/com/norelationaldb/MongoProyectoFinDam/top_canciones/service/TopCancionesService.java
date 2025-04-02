@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Servicio de top de canciones
  * @author cristian && Joel
@@ -46,6 +48,14 @@ public class TopCancionesService {
             topCanciones.setVecesEscuchada(1);
             topCancionesRepository.save(topCanciones);
         }
+    }
+
+    /**
+     * Metodo para obtener todas las canciones ordenadas de veces escuchadas en spotify
+     * @return la lista de canciones ordenadas
+     */
+    public List<TopCanciones> getTopCanciones(){
+        return topCancionesRepository.findTopCancionesOrdenadas();
     }
 
     /**
