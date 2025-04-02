@@ -2,6 +2,8 @@ package com.norelationaldb.MongoProyectoFinDam.repository;
 
 import com.norelationaldb.MongoProyectoFinDam.model.entity.TopCanciones;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Repositorio de top de canciones
@@ -16,4 +18,7 @@ public interface TopCancionesRepository extends MongoRepository<TopCanciones, St
      * @return el objeto cancion
      */
     TopCanciones findByIdCancion(Integer idCancion);
+
+
+
 }
