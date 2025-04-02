@@ -1,6 +1,7 @@
 package com.norelationaldb.MongoProyectoFinDam.historial.controller;
 
 import com.norelationaldb.MongoProyectoFinDam.historial.service.HistorialService;
+import com.norelationaldb.MongoProyectoFinDam.top_canciones.service.TopCancionesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,15 @@ public class HistorialSaveCancionRestController {
 
     //servicio del historial
     private final HistorialService historialService;
+    private final TopCancionesService topCancionesService;
 
     /**
      * Constructor de la clase
      * @param historialService el servicio del historial
      */
-    public HistorialSaveCancionRestController(HistorialService historialService) {
+    public HistorialSaveCancionRestController(HistorialService historialService, TopCancionesService topCancionesService) {
         this.historialService = historialService;
+        this.topCancionesService = topCancionesService;
     }
 
     /**
@@ -36,6 +39,7 @@ public class HistorialSaveCancionRestController {
     public ResponseEntity<String> saveCancionHistorial(@PathVariable Integer idCancion) {
         try{
             boolean historialGuardado = historialService.saveSongHistorial(idCancion);
+            topCancionesService.incrementVecesEscuchada(idCancion);
             if(historialGuardado){
                 return ResponseEntity.ok("cancion añadida al historial");
             }
